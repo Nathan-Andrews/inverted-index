@@ -1,0 +1,92 @@
+# Visual Studio files
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*_i.c
+*_p.c
+*.scc
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb][Ii][Nn]/
+[Oo][Bb][Jj]/
+[Ll][Oo][Gg]s/
+[Ll][Oo][Gg]/
+[Ll][Oo][Gg]g/
+[Ll][Oo][Gg]G/
+[Bb][Ii][Nn]/
+[Dd][Ee][Bb][Uu][Gg]/
+[Rr][Ee][Ll][Ee][Aa][Ss][Ee]/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+[Bb][Ii][Nn]/
+[Rr][Ee][Ll][Ee][Aa][Ss][Ee]/
+[Bb][Ii][Nn]/
+[Ii][Nn][Tt][Ee][Rr][Oo][Pp][Ss]/
+[Pp][Aa][Cc][Kk][Aa][Gg][Ee][Oo][Bb][Jj][Ee][Cc][Tt][Ss]/
+[Pp][Rr][Ee][Ss][Ee][Rr][Vv][Ee][Dd][Ww][Oo][Rr][Dd][Ss]/
+build/
+obj/
+[Bb]in/
+[Pp]kg/
+[Pp]kgDebug/
+[Pp]kgRelease/
+[Pp]kgPublish/
+[Pp]kgObj/
+
+# Visual Studio files
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider files
+.idea/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates

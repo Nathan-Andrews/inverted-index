@@ -1,0 +1,83 @@
+C# Strings Documentation
+
+Table of Contents:
+1. Introduction
+2. String Declaration
+3. String Literals
+4. String Concatenation
+5. String Interpolation
+6. Common String Methods
+7. String Comparison
+8. String Manipulation
+9. String Format
+10. String and Memory
+
+1. Introduction:
+In C#, a string is a sequence of characters that represents text. Strings are one of the most commonly used data types in C# and are used for storing and manipulating textual data. This documentation provides an overview of working with strings in C#.
+
+2. String Declaration:
+You can declare a string variable in C# by using the `string` keyword. Here's how to declare a string variable:
+
+
+string myString;
+
+
+3. String Literals:
+String literals are sequences of characters enclosed in double quotes. You can assign a string literal to a string variable as follows:
+
+
+string greeting = "Hello, World!";
+
+
+4. String Concatenation:
+You can combine (concatenate) strings using the `+` operator. This operation creates a new string by joining the contents of two or more strings.
+
+
+string firstName = "John";
+string lastName = "Doe";
+string fullName = firstName + " " + lastName; // "John Doe"
+
+
+5. String Interpolation:
+String interpolation allows you to embed expressions within a string. You can include variables, expressions, or method calls directly within a string using the `$` symbol and curly braces.
+
+
+string name = "Alice";
+int age = 30;
+string message = $"My name is {name} and I am {age} years old.";
+
+
+6. Common String Methods:
+C# provides a wide range of string manipulation methods, including `Substring`, `Length`, `ToLower`, `ToUpper`, `Trim`, and more. These methods allow you to perform various operations on strings.
+
+
+string text = "  This is a string.  ";
+int length = text.Length; // 21
+string trimmedText = text.Trim(); // "This is a string."
+
+
+7. String Comparison:
+You can compare strings for equality using the `==` operator or by using methods like `Equals`. Be careful with string comparisons, as they are case-sensitive by default.
+
+
+string str1 = "Hello";
+string str2 = "hello";
+bool areEqual = string.Equals(str1, str2, StringComparison.OrdinalIgnoreCase); // true
+
+
+8. String Manipulation:
+Strings are immutable in C#, which means you cannot change the characters within a string once it is created. Instead, any operations that appear to modify a string create a new string. This behavior is important to keep in mind when working with strings to avoid unexpected results and performance issues.
+
+9. String Format:
+You can format strings using the `string.Format` method or string interpolation. This is useful for creating formatted output with placeholders for various values.
+
+
+int apples = 10;
+int oranges = 5;
+string message = string.Format("I have {0} apples and {1} oranges.", apples, oranges);
+
+
+10. String and Memory:
+Since strings are immutable, creating and manipulating strings can lead to memory overhead, especially in performance-critical applications. It's important to be mindful of memory usage when working with large numbers of strings.
+
+In conclusion, strings are a fundamental data type in C# used for working with textual data. Understanding the various operations and methods available for string manipulation is essential for developing applications that handle and process text efficiently and effectively.

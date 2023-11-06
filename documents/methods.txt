@@ -1,0 +1,96 @@
+C# Methods Documentation
+
+Table of Contents:
+1. Introduction
+2. Method Declaration
+3. Method Parameters
+4. Method Return Types
+5. Method Overloading
+6. Access Modifiers
+7. Static Methods
+8. Recursive Methods
+9. Method Invocation
+
+1. Introduction:
+Methods are an essential part of C# programming, allowing you to encapsulate reusable code into functions. Methods are blocks of code that perform a specific task and can be called or invoked multiple times. This documentation provides an overview of working with methods in C#.
+
+2. Method Declaration:
+To declare a method in C#, you use the `method` keyword, followed by the method's return type, name, and parentheses that can contain parameters. A method can be declared inside a class.
+
+
+public int Add(int a, int b)
+{
+    int result = a + b;
+    return result;
+}
+
+
+3. Method Parameters:
+Method parameters are variables that are used to pass values into a method. You can define parameters in the method's parentheses. Parameters allow methods to accept input and perform operations on it.
+
+
+public void Greet(string name)
+{
+    Console.WriteLine($"Hello, {name}!");
+}
+
+
+4. Method Return Types:
+Every method in C# has a return type that specifies the type of value the method will return. If a method doesn't return a value, you use `void` as the return type.
+
+
+public int Multiply(int x, int y)
+{
+    return x * y;
+}
+
+
+5. Method Overloading:
+Method overloading is a feature that allows you to define multiple methods in the same class with the same name but different parameter lists. The method called depends on the number or types of arguments passed.
+
+
+public int Add(int a, int b)
+{
+    return a + b;
+}
+
+public double Add(double a, double b)
+{
+    return a + b;
+}
+
+
+6. Access Modifiers:
+Access modifiers define the visibility and accessibility of a method. Common access modifiers include `public`, `private`, `protected`, and `internal`. They determine where the method can be accessed.
+
+7. Static Methods:
+Static methods are associated with a class rather than an instance of the class. They can be called using the class name and don't require an object to be instantiated.
+
+
+public static void PrintMessage(string message)
+{
+    Console.WriteLine(message);
+}
+
+
+8. Recursive Methods:
+A recursive method is a method that calls itself. Recursion is a powerful technique used to solve problems that can be divided into smaller, similar subproblems. However, it should be used with care to avoid stack overflow exceptions.
+
+
+public int Factorial(int n)
+{
+    if (n == 0)
+        return 1;
+    else
+        return n * Factorial(n - 1);
+}
+
+
+9. Method Invocation:
+To use a method, you invoke or call it by using the method's name and passing any required arguments. The method is executed, and if it returns a value, you can assign it to a variable or use it directly.
+
+
+int sum = Add(3, 5); // Calling the Add method
+
+
+In conclusion, methods are essential for organizing and structuring code in C#. They encapsulate functionality, promote code reusability, and improve maintainability. Understanding method declaration, parameters, return types, and other features is crucial for effective C# programming.
