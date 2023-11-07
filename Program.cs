@@ -15,22 +15,19 @@ namespace InvertedIndex {
         }
 
         public void addOrUpdate(string word,string path) {
+            // simplifies word into common form for consistancy
             word = word.simplifyWord();
             if (word == "") return;
 
-            if (map.TryGetValue(word, out Dictionary<string, int>? docReferenceMap))
-            {
-                if (docReferenceMap.ContainsKey(path))
-                {
+            if (map.TryGetValue(word, out Dictionary<string, int>? docReferenceMap)) {
+                if (docReferenceMap.ContainsKey(path)) {
                     docReferenceMap[path]++;
                 }
-                else
-                {
+                else {
                     docReferenceMap.Add(path, 1);
                 }
             }
-            else
-            {
+            else {
                 docReferenceMap = new Dictionary<string, int>();
                 map.Add(word, docReferenceMap);
 
@@ -100,6 +97,7 @@ namespace InvertedIndex {
     }
 
     public static class StringExtension {
+        private static readonly string[] stopWords = {"a", "an", "and", "as", "at", "by", "for", "in", "is", "it", "of", "on", "the", "to", "was", "were"};
         public static string simplifyWord(this string word) {
             // Convert string to lowercase for consistancy
             word = word.ToLower();
@@ -113,6 +111,10 @@ namespace InvertedIndex {
             EnglishPorter2Stemmer stemmer = new();
 
             string stemmedWord = stemmer.Stem(word).Value;
+
+            // filter out words which dont carry significant meaning
+            // i.e. "a","and","as"...
+            if (stopWords.Contains(stemmedWord)) return "";
 
             return stemmedWord;
         }
