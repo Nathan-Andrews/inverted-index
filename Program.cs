@@ -7,10 +7,12 @@ using Porter2StemmerStandard;
 
 
 namespace InvertedIndex {
-    public class InvertedIndex {
+    public class OldInvertedIndex {
+        // and old version of the inverted index which sorts the results during a query
+        //      instead of during insert
         private Dictionary<string,Dictionary<string,int>> map;
 
-        public InvertedIndex() {
+        public OldInvertedIndex() {
             map = new Dictionary<string, Dictionary<string,int>>();
         }
 
@@ -81,6 +83,86 @@ namespace InvertedIndex {
         }
     }
 
+    public class InvertedIndex {
+        private Dictionary<string,ArrayList<KeyValuePair<string,int>>> map;
+
+        public InvertedIndex() {
+            map = new Dictionary<string, ArrayList<KeyValuePair<string,int>>>();
+        }
+
+        public void addOrUpdate(string word,string path) {
+            // simplifies word into common form for consistancy
+            word = word.simplifyWord();
+            if (word == "") return;
+
+            if (map.TryGetValue(word, out ArrayList<KeyValuePair<string,int>>? docReferenceList)) {
+                // loop until the doc reference is found.  If ever
+                for (int i = 0; i < docReferenceList.Count; i++) {
+                    if (docReferenceList[i].Key == path) {
+                        // if the current path is found in the array, update its count 
+                        docReferenceList[i] = new KeyValuePair<string,int>(docReferenceList[i].Key,docReferenceList[i].Value + 1);
+
+                        // now sort array to account for changes
+                        for (int j = i; j > 0 && docReferenceList[j].Value > docReferenceList[j - 1].Value; j--) {
+                            // swap values
+                            KeyValuePair<string,int> temp = new KeyValuePair<string,int>(docReferenceList[j].Key,docReferenceList[j].Value);
+                            docReferenceList[j] = new KeyValuePair<string,int>(docReferenceList[j-1].Key,docReferenceList[j-1].Value);
+                            docReferenceList[j-1] = new KeyValuePair<string,int>(temp.Key,temp.Value);
+                        }
+
+                        break;
+                    }
+                    else if (i == docReferenceList.Count - 1) {
+                        // if at the end of the list we know that a reference to the document doesn't exist so we can add it to the end
+                        docReferenceList.Add(new KeyValuePair<string,int>(path, 1));
+                        // since the count is 1, and its at the end, we wont have to sort
+                    }
+                }
+            }
+            else {
+                docReferenceList = new ArrayList<KeyValuePair<string,int>>();
+                map.Add(word, docReferenceList);
+
+                docReferenceList.Add(new KeyValuePair<string,int>(path,1));
+            }
+        }
+
+        public void printWord(string? word) {
+            if (word == null) {
+                Console.WriteLine("word does not exist in map");
+                return;
+            }
+
+            word = word.simplifyWord();
+
+            if (map.TryGetValue(word,out ArrayList<KeyValuePair<string,int>>? docReferenceList)) {
+                foreach(KeyValuePair<string,int> docReference in docReferenceList) {
+                    Console.WriteLine(docReference.ToString());
+                }
+            }
+            else {
+                Console.WriteLine("word does not exist in map");
+            }
+        }
+
+        public List<KeyValuePair<string, int>> getWord(string? word) {
+            if (word == null) {
+                Console.WriteLine("word does not exist in map");
+                return new List<KeyValuePair<string, int>>();
+            }
+
+            word = word.simplifyWord();
+
+            if (map.TryGetValue(word, out ArrayList<KeyValuePair<string, int>>? docReferenceList)) {
+                return docReferenceList;
+            }
+            else {
+                Console.WriteLine("word does not exist in map");
+                return new List<KeyValuePair<string, int>>();
+            }
+        }
+    }
+
     internal class ArrayList<T> : List<KeyValuePair<string, int>>
     {
     }
@@ -119,6 +201,18 @@ namespace InvertedIndex {
             return stemmedWord;
         }
     }
+
+    // public static class ArrayListExtension {
+    //     public static bool containsAndGetIndex(this ArrayList list, string key, ref int index) {
+    //         for (int i = 0; i < list.Count; i++) {
+    //             if (list[i] is Tuple<string,int> pair && pair.Item1 == key) {
+    //                 index = i;
+    //                 return true;
+    //             }
+    //         }
+    //         return false;
+    //     }
+    // }
 
     public class Program {
         static void readFileToInvertedIndex(string path,InvertedIndex invertedIndex) {
@@ -169,7 +263,7 @@ namespace InvertedIndex {
 
                 input = Console.ReadLine();
 
-                ArrayList foundReferenceArray = search.getWord(input);
+                List<KeyValuePair<string,int>> foundReferenceArray = search.getWord(input);
 
                 foreach (KeyValuePair<string, int> pair in foundReferenceArray) {
                         Console.ForegroundColor = ConsoleColor.Green;
