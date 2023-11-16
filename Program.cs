@@ -7,82 +7,6 @@ using Porter2StemmerStandard;
 
 
 namespace InvertedIndex {
-    public class OldInvertedIndex {
-        // and old version of the inverted index which sorts the results during a query
-        //      instead of during insert
-        private Dictionary<string,Dictionary<string,int>> map;
-
-        public OldInvertedIndex() {
-            map = new Dictionary<string, Dictionary<string,int>>();
-        }
-
-        public void addOrUpdate(string word,string path) {
-            // simplifies word into common form for consistancy
-            word = word.simplifyWord();
-            if (word == "") return;
-
-            if (map.TryGetValue(word, out Dictionary<string, int>? docReferenceMap)) {
-                if (docReferenceMap.ContainsKey(path)) {
-                    docReferenceMap[path]++;
-                }
-                else {
-                    docReferenceMap.Add(path, 1);
-                }
-            }
-            else {
-                docReferenceMap = new Dictionary<string, int>();
-                map.Add(word, docReferenceMap);
-
-                docReferenceMap.Add(path,1);
-            }
-        }
-
-        public void printWord(string? word) {
-            if (word == null) {
-                Console.WriteLine("word does not exist in map");
-                return;
-            }
-
-            word = word.simplifyWord();
-
-            if (map.TryGetValue(word,out Dictionary<string,int>? docReferenceMap)) {
-                foreach(KeyValuePair<string,int> docReference in docReferenceMap) {
-                    Console.WriteLine(docReference.ToString());
-                }
-            }
-            else {
-                Console.WriteLine("word does not exist in map");
-            }
-        }
-
-        public ArrayList getWord(string? word) {
-            ArrayList foundReferenceArray = new ArrayList();
-
-            if (word == null) {
-                Console.WriteLine("word does not exist in map");
-                return foundReferenceArray;
-            }
-
-            word = word.simplifyWord();
-
-            if (map.TryGetValue(word,out Dictionary<string,int>? docReferenceMap)) {
-                foreach (KeyValuePair<string,int> docReference in docReferenceMap) {
-                    // Console.WriteLine(docReference.ToString());
-                    foundReferenceArray.Add(docReference);
-                }
-            }
-            else {
-                Console.WriteLine("word does not exist in map");
-                return foundReferenceArray;
-            }
-
-            IComparer comparer = new PairComparer();
-            foundReferenceArray.Sort(comparer);
-
-            return foundReferenceArray;
-        }
-    }
-
     public class InvertedIndex {
         private Dictionary<string,ArrayList<KeyValuePair<string,int>>> map;
 
@@ -201,18 +125,6 @@ namespace InvertedIndex {
             return stemmedWord;
         }
     }
-
-    // public static class ArrayListExtension {
-    //     public static bool containsAndGetIndex(this ArrayList list, string key, ref int index) {
-    //         for (int i = 0; i < list.Count; i++) {
-    //             if (list[i] is Tuple<string,int> pair && pair.Item1 == key) {
-    //                 index = i;
-    //                 return true;
-    //             }
-    //         }
-    //         return false;
-    //     }
-    // }
 
     public class Program {
         static void readFileToInvertedIndex(string path,InvertedIndex invertedIndex) {
